@@ -1,18 +1,13 @@
-
-
 // Variables
-var currentGame;
-
-
-
+var gameState;
+var refreshMillis = 1000;
 
 /**
- * Render the current game.
+ * Update the game state from server.
  */
-function renderGame() {
-
-    // GET game state from server
-    currentGame = {
+function updateGameState() {
+	// GET game state from server
+    gameState = {
         clue: "🦇👨",
         activeFrom: 1528928914066,
         previousGames: [
@@ -32,21 +27,46 @@ function renderGame() {
             }
         ]
     }
+}
+
+/**
+ * Render the game.
+ */
+function renderGame() {
+
+	// Update game
+	updateGameState();
+	
+	// Clear previous display
+	$("#clue span").remove();
+	$("#active-time span").remove();
+	$("#previous-games tbody").empty();
 
     // Display current game
-    $("#clue").append(currentGame.clue);
-    $("#active-time").append((new Date().getTime() - currentGame.activeFrom) + "ms");
+    $("#clue").append("<span>" + gameState.clue + "</span>");
+    $("#active-time").append("<span>" + (new Date().getTime() - gameState.activeFrom) + "ms" + "</span>");
 
     // Display previous games
-    currentGame.previousGames.forEach(previousGame => {
-        $("#previous-games").append("<tr>");
-        $("#previous-games").append("<td>" + previousGame.clue + "</td>");
-        $("#previous-games").append("<td>" + previousGame.filmName + "</td>");
-        $("#previous-games").append("<td>" + previousGame.solvedBy + "</td>");
-        $("#previous-games").append("<td>" + (previousGame.activeTo - previousGame.activeFrom) + "ms</td>");
-        $("#previous-games").append("<td>");
+    gameState.previousGames.forEach(previousGame => {
+        $("#previous-games tbody").append("<tr>");
+        $("#previous-games tbody").append("<td>" + previousGame.clue + "</td>");
+        $("#previous-games tbody").append("<td>" + previousGame.filmName + "</td>");
+        $("#previous-games tbody").append("<td>" + previousGame.solvedBy + "</td>");
+        $("#previous-games tbody").append("<td>" + (previousGame.activeTo - previousGame.activeFrom) + "ms</td>");
+        $("#previous-games tbody").append("</tr>");
     });
 }
 
+/**
+ * Load the game.
+ */
+function loadGame() {
+	// Initial render
+	renderGame();
+	
+	// Render the game on an interval
+	setInterval(renderGame, refreshMillis);	
+}
+
 // Main
-$(document).ready(renderGame);
+$(document).ready(loadGame);
