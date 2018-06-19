@@ -6,9 +6,11 @@ var refreshMillis = 1000;
  * Update the game state from server.
  */
 function updateGameState() {
+
     // GET game state from server
     gameState = {
         clue: "🦇👨",
+        answer: "Batman",
         activeFrom: 1528928914066,
         previousGames: [
             {
@@ -98,6 +100,7 @@ function renderGame() {
  * Load the game.
  */
 function loadGame() {
+
     // Initial render
     renderGame();
 

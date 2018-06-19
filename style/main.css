@@ -6,15 +6,33 @@ body {
 }
 
 #wrapper {
-    width: 50%;
+    width: 75%;
     margin: 0 auto;
-}
-
-h1, h2 {
     text-align: center;
 }
 
 #clue {
-    text-align: center;
     font-size: 3em;
+}
+
+#answer-input {
+    width: 25%;
+    font-size: 1em;
+    margin-top: 1em;
+}
+
+#active-time {
+    font-size: 0.75em;
+    margin-top: 1em;
+}
+
+#previous-games {
+    margin: 0 auto;
+    font-size: 0.5em;
+    text-align: center;
+    margin-top: 5em;
+}
+
+#previous-games table {
+    margin: 0 auto;
 }
