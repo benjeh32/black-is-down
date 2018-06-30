@@ -1,6 +1,5 @@
 # Webpack
-dist/*
-!dist/*.html
+bin/
 
 # Logs
 logs

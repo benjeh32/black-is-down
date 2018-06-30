@@ -1,8 +1,11 @@
 // Imports
-import './style.css';
+import './index.css';
 
 // Requires
 var emojiscribe = require('emojiscribe');
+
+// Templates
+//var template = require("./index.handlebars");
 
 // Variables
 var gameState;

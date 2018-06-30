@@ -1,5 +1,6 @@
 const webpack = require('webpack');
 const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     entry: {
@@ -7,7 +8,7 @@ module.exports = {
     },
     output: {
         filename: '[name].bundle.js',
-        path: path.resolve(__dirname, 'dist')
+        path: path.resolve(__dirname, 'bin')
     },
     module: {
         rules: [
@@ -17,6 +18,10 @@ module.exports = {
                     'style-loader',
                     'css-loader'
                 ]
+            },
+            {
+                test: /\.handlebars$/,
+                loader: 'handlebars-loader'
             }
         ]
     },
@@ -25,10 +30,21 @@ module.exports = {
             $: 'jquery',
             jQuery: 'jquery'
         }),
+        new webpack.LoaderOptionsPlugin({
+            options: {
+                handlebarsLoader: {}
+            }
+        }),
+        new HtmlWebpackPlugin({
+            filename: 'index.html',
+            title: 'Black is Down',
+            template: path.resolve(__dirname, 'src/index.handlebars'),
+            inject: 'head'
+        })
     ],
     devtool: 'inline-source-map',
     devServer: {
-        contentBase: path.join(__dirname, 'dist'),
+        contentBase: path.resolve(__dirname, 'bin'),
         compress: true,
         port: 9000
     }
