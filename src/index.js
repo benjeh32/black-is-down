@@ -1,3 +1,6 @@
+// Requires
+var emojiscribe = require('emojiscribe');
+
 // Variables
 var gameState;
 var refreshMillis = 1000;
@@ -83,6 +86,7 @@ function renderGame() {
 
     // Display current game
     $("#clue").append("<span>" + gameState.clue + "</span>");
+    $("#clue").append("<span>" + emojiscribe.describeWithEmoji(gameState.answer) + "</span>");
     $("#active-time").append("<span>" + convertMilliseconds((new Date().getTime() - gameState.activeFrom)) + "</span>");
 
     // Display previous games

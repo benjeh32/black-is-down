@@ -2,15 +2,18 @@
   "name": "black-is-down",
   "version": "0.1.0",
   "description": "Emoji-based charades.",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/benjeh32/black-is-down.git"
-  },
+  "keywords": ["emoji, game"],
+  "homepage": "https://github.com/benjeh32/black-is-down",
   "main": "src/index.js",
+  "license": "MIT",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "budo src/index.js:bin/bundle.js --live --open --port 3232 --host localhost -- -t babelify",
     "build": "browserify src/index.js -t babelify | uglifyjs -cm > bin/bundle.js"
+  },
+  "repository": "github:benjeh32/emojiscribe",
+  "dependencies": {
+    "emojiscribe": "^0.1.0"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
