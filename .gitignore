@@ -1,5 +1,6 @@
-# Browserify bundles
-bin/
+# Webpack
+dist/*
+!dist/*.html
 
 # Logs
 logs

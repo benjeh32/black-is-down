@@ -1,3 +1,6 @@
+// Imports
+import './style.css';
+
 // Requires
 var emojiscribe = require('emojiscribe');
 
