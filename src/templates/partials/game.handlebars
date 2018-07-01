@@ -1,18 +1,22 @@
-<div id="wrapper">
-    <h1>Black is Down</h1>
-
-    <h3>Guess the movie that has been described using emoji.</h3>
-
-    <div id="clue">
+<div class="row text-center">
+    <div class="col-12">
+        <div class="jumbotron-fluid">
+            <h1 class="display-4">Black is Down</h1>
+            <p class="lead">Guess the movie that has been described using emoji.</p>
+        </div>
+    </div>
+    <div id="clue" class="col-12">
         {{clue}}
     </div>
-
-    <div id="answer">
-        <input id="answer-input" />
-        <input id="answer-submit" type="button" value="Guess" />
+    <div class="col-4 offset-4">
+        <div class="input-group justify-content-center">
+            <input type="text" class="form-control form-control-lg" placeholder="Guess">
+            <div class="input-group-append">
+                <button class="btn btn-primary btn-lg" type="submit">Submit</button>
+            </div>
+        </div>
     </div>
-
-    <div id="active-time">
+    <div class="col-12">
         Guessing for {{activeTime}}
     </div>
 </div>

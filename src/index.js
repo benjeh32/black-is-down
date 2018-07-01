@@ -1,6 +1,6 @@
 // Imports
 import 'bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootswatch/dist/sketchy/bootstrap.min.css';
 import './index.css';
 import movies from './data/movies.json'
 
@@ -79,7 +79,7 @@ function renderGame() {
     };
 
     // Update content
-    $("body").empty().append(gameTemplate(context));
+    $("#game-content").empty().append(gameTemplate(context));
 }
 
 /**
