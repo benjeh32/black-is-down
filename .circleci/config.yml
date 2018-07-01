@@ -36,4 +36,4 @@ jobs:
 
       # Store built artifacts
       - store_artifacts:
-          path: ~/black-is-down/dist
+          path: bin
