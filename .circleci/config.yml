@@ -1,0 +1,39 @@
+version: 2
+
+jobs:
+
+  # Build job
+  build:
+    working_directory: ~/black-is-down
+
+    # Build on a Node Docker image
+    docker:
+      - image: circleci/node:8.11.1
+
+    # Build job steps
+    steps:
+
+      # Checkout code
+      - checkout
+
+      # Restore node_modules cache (either exact match or latest cache)
+      - restore_cache:
+          keys:
+            - node_modules-{{ checksum "package.json" }}
+            - node_modules-
+
+      # Dependency install
+      - run: npm install
+
+      # Perform build
+      - run: npm run build
+
+      # Cache node_modules
+      - save_cache:
+          paths:
+            - node_modules
+          key: node_modules-{{ checksum "package.json" }}
+
+      # Store built artifacts
+      - store_artifacts:
+          path: dist
