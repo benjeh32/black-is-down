@@ -5,7 +5,7 @@ import './index.css';
 var emojiscribe = require('emojiscribe');
 
 // Templates
-//var template = require("./index.handlebars");
+var gameTemplate = require("./templates/partials/game.handlebars");
 
 // Variables
 var gameState;
@@ -85,25 +85,26 @@ function renderGame() {
     // Update game
     updateGameState();
 
-    // Clear previous display
-    $("#clue span").remove();
-    $("#active-time span").remove();
-    $("#previous-games tbody").empty();
+    // Build data
+    var context = {
+        clue: gameState.clue,
+        answer: emojiscribe.describeWithEmoji(gameState.answer),
+        activeTime: convertMilliseconds((new Date().getTime() - gameState.activeFrom)),
+        previousGames: []
+    };
 
-    // Display current game
-    $("#clue").append("<span>" + gameState.clue + "</span>");
-    $("#clue").append("<span>" + emojiscribe.describeWithEmoji(gameState.answer) + "</span>");
-    $("#active-time").append("<span>" + convertMilliseconds((new Date().getTime() - gameState.activeFrom)) + "</span>");
-
-    // Display previous games
     gameState.previousGames.forEach(previousGame => {
-        $("#previous-games tbody").append("<tr>");
-        $("#previous-games tbody").append("<td>" + previousGame.clue + "</td>");
-        $("#previous-games tbody").append("<td>" + previousGame.filmName + "</td>");
-        $("#previous-games tbody").append("<td>" + previousGame.solvedBy + "</td>");
-        $("#previous-games tbody").append("<td>" + convertMilliseconds(previousGame.activeTo - previousGame.activeFrom) + "</td>");
-        $("#previous-games tbody").append("</tr>");
+        var contextGame = {
+            clue: previousGame.clue,
+            answer: previousGame.filmName,
+            solvedBy: previousGame.solvedBy,
+            activeTime: convertMilliseconds(previousGame.activeTo - previousGame.activeFrom)
+        };
+        context.previousGames.push(contextGame);
     });
+
+    // Update content
+    $("body").empty().append(gameTemplate(context));
 }
 
 /**
@@ -118,5 +119,5 @@ function loadGame() {
     setInterval(renderGame, refreshMillis);
 }
 
-// Main
+// Main entry point
 $(document).ready(loadGame);
