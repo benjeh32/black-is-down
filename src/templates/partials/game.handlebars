@@ -1,37 +1,18 @@
 <div id="wrapper">
     <h1>Black is Down</h1>
 
-    <h2>Current game</h2>
+    <h3>Guess the movie that has been described using emoji.</h3>
 
-    <div id="clue">{{clue}}</div>
+    <div id="clue">
+        {{clue}}
+    </div>
 
     <div id="answer">
-        <input id="answer-input" placeholder={{answer}} />
+        <input id="answer-input" />
+        <input id="answer-submit" type="button" value="Guess" />
     </div>
 
     <div id="active-time">
-        Active for {{activeTime}}
-    </div>
-
-    <div id="previous-games">
-        <h2>Previous games</h2>
-        <table border="true">
-            <thead>
-                <th>Clue</th>
-                <th>Answer</th>
-                <th>Solved by</th>
-                <th>Active time</th>
-            </thead>
-            <tbody>
-                {{#each previousGames}}
-                    <tr>
-                        <td>{{clue}}</td>
-                        <td>{{answer}}</td>
-                        <td>{{solvedBy}}</td>
-                        <td>{{activeTime}}</td>
-                    </tr>
-                {{/each}}
-            </tbody>
-        </table>
+        Guessing for {{activeTime}}
     </div>
 </div>

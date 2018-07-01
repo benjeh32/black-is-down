@@ -1,5 +1,6 @@
 // Imports
 import './index.css';
+import movies from './data/movies.json'
 
 // Requires
 var emojiscribe = require('emojiscribe');
@@ -12,31 +13,18 @@ var gameState;
 var refreshMillis = 1000;
 
 /**
- * Update the game state from server.
+ * Update the game state.
  */
 function updateGameState() {
 
-    // GET game state from server
+    // Pick a random movie
+    var movie = movies[Math.floor(Math.random() * movies.length)];
+
+    // Build game state
     gameState = {
-        clue: "🦇👨",
-        answer: "Batman",
-        activeFrom: 1528928914066,
-        previousGames: [
-            {
-                clue: "🇮🇹🚗🚗🚗🚌⛰️",
-                activeFrom: 1528928877065,
-                activeTo: 1528928908676,
-                filmName: "The Italian Job",
-                solvedBy: "Ben Thomas"
-            },
-            {
-                clue: "🚢",
-                activeFrom: 1528928877065,
-                activeTo: 1528928908676,
-                filmName: "Titanic",
-                solvedBy: "Ben Thomas"
-            }
-        ]
+        clue: movie.clue,
+        answer: movie.name,
+        activeFrom: new Date()
     }
 }
 
@@ -82,26 +70,11 @@ function convertMilliseconds(milliseconds) {
  */
 function renderGame() {
 
-    // Update game
-    updateGameState();
-
     // Build data
     var context = {
         clue: gameState.clue,
-        answer: emojiscribe.describeWithEmoji(gameState.answer),
-        activeTime: convertMilliseconds((new Date().getTime() - gameState.activeFrom)),
-        previousGames: []
+        activeTime: convertMilliseconds((new Date() - gameState.activeFrom))
     };
-
-    gameState.previousGames.forEach(previousGame => {
-        var contextGame = {
-            clue: previousGame.clue,
-            answer: previousGame.filmName,
-            solvedBy: previousGame.solvedBy,
-            activeTime: convertMilliseconds(previousGame.activeTo - previousGame.activeFrom)
-        };
-        context.previousGames.push(contextGame);
-    });
 
     // Update content
     $("body").empty().append(gameTemplate(context));
@@ -111,6 +84,9 @@ function renderGame() {
  * Load the game.
  */
 function loadGame() {
+
+    // Update game state
+    updateGameState();
 
     // Initial render
     renderGame();
