@@ -28,12 +28,15 @@ jobs:
       # Perform build
       - run: npm run build
 
+      # Zip artifacts
+      - run: zip -r black-is-down.zip bin
+
+      # Store artifacts
+      - store_artifacts:
+          path: black-is-down.zip
+
       # Cache node_modules
       - save_cache:
           paths:
             - node_modules
           key: node_modules-{{ checksum "package.json" }}
-
-      # Store built artifacts
-      - store_artifacts:
-          path: bin
